@@ -1,0 +1,5 @@
+<div>
+  <h1 class="text-2xl font-extrabold mb-4">Planos</h1>
+  <div class="card p-4 mb-4 grid md:grid-cols-4 gap-3"><input wire:model="name" class="input" placeholder="Nome do plano"><input wire:model="price" type="number" step="0.01" class="input" placeholder="Valor"><select wire:model="period" class="input"><option value="monthly">Mensal</option><option value="quarterly">Trimestral</option><option value="semiannual">Semestral</option><option value="annual">Anual</option></select><button wire:click="save" class="btn-primary">Criar plano</button></div>
+  <div class="grid md:grid-cols-3 gap-4">@foreach($plans as $p)<div class="card p-6 {{ !$p->active?'opacity-50':'' }}">@if($p->promo)<span class="badge bg-amber-600/15 text-amber-400">PROMO</span>@endif<h3 class="font-extrabold text-lg mt-2">{{ $p->name }}</h3><div class="text-3xl font-black text-blue-400 mt-1">R$ {{ number_format($p->price,2,',','.') }}<span class="text-xs text-zinc-500 font-normal">/{{ $p->period }}</span></div><button wire:click="toggle({{ $p->id }})" class="btn-ghost w-full mt-4">{{ $p->active?'Desativar':'Ativar' }}</button></div>@endforeach</div>
+</div>

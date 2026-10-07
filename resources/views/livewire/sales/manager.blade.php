@@ -1,0 +1,10 @@
+<div>
+  <div class="flex items-center mb-4"><h1 class="text-2xl font-extrabold">Vendas</h1><div class="ml-auto card !rounded-xl px-4 py-2">Mês: <b class="text-green-400">R$ {{ number_format($total,2,',','.') }}</b></div></div>
+  <div class="card p-4 mb-4 grid md:grid-cols-6 gap-3"><select wire:model="student_id" class="input md:col-span-2"><option value="">Aluno (opcional)...</option>@foreach($students as $s)<option value="{{ $s->id }}">{{ $s->name }}</option>@endforeach</select>
+  <select wire:model="kind" class="input"><option value="plan">Plano</option><option value="product">Produto</option><option value="personal">Personal</option><option value="service">Serviço</option></select>
+  <input wire:model="description" class="input md:col-span-2" placeholder="Descrição"><input wire:model="amount" type="number" step="0.01" class="input" placeholder="Valor"><select wire:model="method" class="input"><option value="pix">PIX</option><option value="cash">Dinheiro</option><option value="credit_card">Crédito</option><option value="debit_card">Débito</option></select>
+  <button wire:click="save" class="btn-primary md:col-span-6">Registrar venda</button></div>
+  <div class="card overflow-hidden"><table class="w-full text-sm"><thead><tr class="text-left text-xs text-zinc-500 uppercase border-b border-[#27272A]"><th class="p-4">Data</th><th class="p-4">Descrição</th><th class="p-4">Aluno</th><th class="p-4">Tipo</th><th class="p-4 text-right">Valor</th></tr></thead>
+  <tbody>@foreach($items as $s)<tr class="border-b border-[#1c1c1f]"><td class="p-4 text-zinc-500">{{ $s->sold_at->format('d/m/Y') }}</td><td class="p-4 font-semibold">{{ $s->description }}</td><td class="p-4 text-zinc-400">{{ $s->student->name ?? '—' }}</td><td class="p-4"><span class="badge bg-blue-600/15 text-blue-400">{{ $s->kind }}</span></td><td class="p-4 text-right font-bold">R$ {{ number_format($s->amount,2,',','.') }}</td></tr>@endforeach</tbody></table></div>
+  <div class="mt-4">{{ $items->links() }}</div>
+</div>
